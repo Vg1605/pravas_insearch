@@ -106,24 +106,36 @@ class ProfilePageController extends GetxController {
       Message.showToast(Constants.noNumber, PravasDarkColors().textColor3,
           PravasDarkColors().textColor);
     } else {
-      String formattedPhoneNumber = "+91$number";
-      var whatsappUrl = "whatsapp://send?phone=$formattedPhoneNumber";
-      await launchUrl(Uri.parse(whatsappUrl));
+      try {
+        String formattedPhoneNumber = "+91$number";
+        var whatsappUrl = "whatsapp://send?phone=$formattedPhoneNumber";
+        await launchUrl(Uri.parse(whatsappUrl));
+      } catch (e) {
+        Message.showToast(e.toString(), PravasDarkColors().textColor3,
+            PravasDarkColors().textColor);
+      }
     }
   }
 
   callNumber(String phoneNumber) async {
+    if (phoneNumber.isEmpty) {
+      Message.showToast(
+        Constants.noNumber,
+        PravasDarkColors().textColor3,
+        PravasDarkColors().textColor,
+      );
+      return;
+    }
     String formattedPhoneNumber = "+91$phoneNumber";
-    final url = Uri.parse(formattedPhoneNumber);
-    if (phoneNumber == "") {
-      Message.showToast(Constants.noNumber, PravasDarkColors().textColor3,
-          PravasDarkColors().textColor);
-    } else {
-      if (await canLaunchUrl(url)) {
-        launchUrl(url);
-      } else {
-        throw 'Could not launch $url';
-      }
+    final uri = Uri.parse('tel:$formattedPhoneNumber');
+    try {
+      await launchUrl(uri);
+    } catch (e) {
+      Message.showToast(
+        e.toString(),
+        PravasDarkColors().textColor3,
+        PravasDarkColors().textColor,
+      );
     }
   }
 }
