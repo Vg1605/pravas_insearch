@@ -6,6 +6,7 @@ import 'package:pravas/Utils/commonWidgets/constants.dart';
 import 'package:pravas/Utils/commonWidgets/toast.dart';
 import 'package:pravas/app/api/model/participants%20Model.dart';
 import 'package:pravas/app/api/model/tourModel.dart';
+import 'package:pravas/app/routes/app_pages.dart';
 import 'package:pravas/app/sharedPreference.dart';
 import 'package:http/http.dart' as http;
 import 'package:pravas/colors.dart';
@@ -137,5 +138,9 @@ class ProfilePageController extends GetxController {
         PravasDarkColors().textColor,
       );
     }
+  }
+
+   info(ParticipantData participant) {
+    Get.toNamed(Routes.PARTICIPANTS_INFO_PAGE,arguments: participant);
   }
 }

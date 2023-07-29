@@ -1,44 +1,41 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:pravas/Utils/commonWidgets/constants.dart';
+import 'package:pravas/Utils/commonWidgets/toast.dart';
+import 'package:pravas/app/sharedPreference.dart';
+import 'package:pravas/colors.dart';
+import 'package:http/http.dart' as http;
 
 class NewEventController extends GetxController {
-  TextEditingController titleController = TextEditingController();
-  TextEditingController dateController = TextEditingController();
-  var calendarValue = ''.obs;
-  var categoryValue = ''.obs;
-  var tourValue = ''.obs;
+  TextEditingController limitController = TextEditingController();
+  TextEditingController feeController = TextEditingController();
+  TextEditingController studentfeeController = TextEditingController();
+  TextEditingController adultfeeController = TextEditingController();
+  TextEditingController earlybirdfeeController = TextEditingController();
+  TextEditingController bookingamountController = TextEditingController();
+  TextEditingController capacityController = TextEditingController();
+  TextEditingController batchforController = TextEditingController();
 
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final image = "".obs;
   var startDate = DateTime.now().obs;
   var endDate = DateTime.now().obs;
 
-  var sTime = DateTime.now().obs;
-  var eTime = DateTime.now().obs;
-
-  final calendarItems = ['Item 1', 'Item 2', 'Item 3'];
-  final categoryItems = ['Item 1', 'Item 2', 'Item 3'];
-  final tourItems = ['Item 1', 'Item 2', 'Item 3'];
-
-
-  DateTime startTime = DateTime.now();
-  List<DateTime> timeOptions = [];
-
   final startdate = false.obs;
-  final starttime = false.obs;
   final enddate = false.obs;
-  final endtime = false.obs;
 
-  final allday = false.obs;
-  final repeat = false.obs;
-  final checkbox1 = false.obs;
-  final checkbox2 = false.obs;
+  final brandId = "".obs;
 
-  final isSelected = false.obs;
+  final batchcode = "".obs;
 
   @override
-  void onInit() {
-    generateTimeOptions();
-
+  Future<void> onInit() async {
+    image.value = (await SharedPreference.getString(key: Constants.image))!;
+    brandId.value = (await SharedPreference.getString(key: Constants.loginId))!;
     super.onInit();
   }
 
@@ -52,45 +49,63 @@ class NewEventController extends GetxController {
     super.onClose();
   }
 
-  void calendarItem(String item) {
-    calendarValue.value = item;
+  void back() {
+    Get.back();
   }
 
-  void categoryItem(String item) {
-    categoryValue.value = item;
-  }
-
-  void tourItem(String item) {
-    tourValue.value = item;
-  }
-
-  void enddateItem(String item) {
-    tourValue.value = item;
-  }
-
-  void generateTimeOptions() {
-    final startTime = DateTime(2000, 1, 1, 0, 0);
-    final endTime = DateTime(2000, 1, 2, 0, 0);
-    final interval = const Duration(minutes: 30);
-    DateTime currentTime = startTime;
-    while (currentTime.isBefore(endTime)) {
-      if (currentTime.hour == 24 && currentTime.minute == 0) {
-        timeOptions.add(DateTime(2000, 1, 2, 0, 0));
-      } else {
-        timeOptions.add(currentTime);
-      }
-      currentTime = currentTime.add(interval);
+  void createbatch() {
+    if (limitController.text.isNotEmpty &&
+        feeController.text.isNotEmpty &&
+        studentfeeController.text.isNotEmpty &&
+        adultfeeController.text.isNotEmpty &&
+        earlybirdfeeController.text.isNotEmpty &&
+        batchcode.value.isNotEmpty &&
+        bookingamountController.text.isNotEmpty &&
+        capacityController.text.isNotEmpty) {
+      apiCalling();
+    } else {
+      Message.showToast("Please fill the fields.",
+          PravasDarkColors().textColor3, PravasDarkColors().textColor);
     }
   }
 
-  handleCheckbox1(bool? value) {
-    checkbox1.value = value ?? false;
-    checkbox2.value = !(value ?? false);
-  }
+  Future<void> apiCalling() async {
+    final formattedDate;
+    final formattedDate1;
+    formattedDate = DateFormat('yyyy-MM-d').format(startDate.value);
+    formattedDate1 = DateFormat('yyyy-MM-d').format(endDate.value);
 
-  handleCheckbox2(bool? value) {
-    checkbox2.value = value ?? false;
-    checkbox1.value = !(value ?? false);
+    Map<String, dynamic> data = {
+      "brand_id": brandId.value.trim(),
+      "tour_id": "244",
+      "sdate": formattedDate,
+      "edate": formattedDate1,
+      "limit": limitController.text.trim(),
+      "fee": feeController.text.trim(),
+      "st_fee": studentfeeController.text.trim(),
+      "ad_fee": adultfeeController.text.trim(),
+      "b_er_brd_dis": earlybirdfeeController.text.trim(),
+      "bcode": batchcode.value.trim(),
+      "bfor": batchforController.text.trim(),
+      "booking_amt": bookingamountController.text.trim(),
+      "capacity": capacityController.text.trim(),
+    };
+    var response = await http.post(Uri.parse(Constants.apiaddbatch),
+        body: jsonEncode(data));
+    var jsonResponseBody = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      print("statuscode::${response.statusCode}");
+      print("response::${response}");
+      print("jsonResponseBody::${jsonResponseBody["message"]}");
+      if (jsonResponseBody["message"] == "Successfully login") {
+        Message.showToast(
+            jsonResponseBody["message"], Colors.blue, Colors.white);
+      } else {
+        Message.showToast(
+            jsonResponseBody["message"], Colors.blue, Colors.white);
+      }
+    } else {
+      Message.showToast(jsonResponseBody["message"], Colors.blue, Colors.white);
+    }
   }
-
 }

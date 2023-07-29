@@ -12,6 +12,7 @@ abstract class Routes {
   static const PROFILE_PAGE = _Paths.PROFILE_PAGE;
   static const SEARCH_PAGE = _Paths.SEARCH_PAGE;
   static const NOTIFICATIONS_PAGE = _Paths.NOTIFICATIONS_PAGE;
+  static const PARTICIPANTS_INFO_PAGE = _Paths.PARTICIPANTS_INFO_PAGE;
 }
 
 abstract class _Paths {
@@ -25,4 +26,5 @@ abstract class _Paths {
   static const PROFILE_PAGE = '/profile-page';
   static const SEARCH_PAGE = '/search-page';
   static const NOTIFICATIONS_PAGE = '/notifications-page';
+  static const PARTICIPANTS_INFO_PAGE = '/participants-info-page';
 }

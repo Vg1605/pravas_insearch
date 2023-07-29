@@ -73,6 +73,12 @@ class SearchPageView extends GetView<SearchPageController> {
                                   controller.scaffoldKey),
                               Box.showSizedbox(.25.dp),
                               AppBarContainer.appbarContainer(
+                                  Constants.addbatch,
+                                  context,
+                                  Constants.search,
+                                  controller.scaffoldKey),
+                              Box.showSizedbox(.25.dp),
+                              AppBarContainer.appbarContainer(
                                   Constants.resetpassword,
                                   context,
                                   Constants.search,

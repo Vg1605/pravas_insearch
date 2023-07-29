@@ -80,6 +80,12 @@ class DashboardPageView extends GetView<DashboardPageController> {
                                     controller.scaffoldKey),
                                 Box.showSizedbox(.25.dp),
                                 AppBarContainer.appbarContainer(
+                                    Constants.addbatch,
+                                    context,
+                                    Constants.dashboard,
+                                    controller.scaffoldKey),
+                                Box.showSizedbox(.25.dp),
+                                AppBarContainer.appbarContainer(
                                     Constants.resetpassword,
                                     context,
                                     Constants.dashboard,

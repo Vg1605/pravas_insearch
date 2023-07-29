@@ -17,6 +17,10 @@ class AppBarContainer {
           if (type == Constants.dashboard) {
             Get.back();
           }
+          if (type == Constants.addbatch) {
+            toggleDrawer(scaffoldKey);
+            Get.toNamed(Routes.NEW_EVENT);
+          }
           if (type == Constants.resetpassword) {
             toggleDrawer(scaffoldKey);
             Get.toNamed(Routes.Reset_PASSWORD);
@@ -29,46 +33,101 @@ class AppBarContainer {
             logout();
           }
         }
-        if (page == Constants.search) {
-          if (type == Constants.search) {
-            Get.back();
-          }
+
+        if (page == Constants.addbatch) {
           if (type == Constants.dashboard) {
             Get.offNamed(Routes.DASHBOARD_PAGE);
           }
+          if (type == Constants.addbatch) {
+            Get.back();
+          }
+          if (type == Constants.resetpassword) {
+            toggleDrawer(scaffoldKey);
+            Get.toNamed(Routes.Reset_PASSWORD);
+          }
           if (type == Constants.notifications) {
+            toggleDrawer(scaffoldKey);
+            Get.toNamed(Routes.NOTIFICATIONS_PAGE);
+          }
+          if (type == Constants.logout) {
+            logout();
+          }
+        }
+
+        if (page == Constants.search) {
+          if (type == Constants.dashboard) {
+            Get.offNamed(Routes.DASHBOARD_PAGE);
+          }
+          if (type == Constants.addbatch) {
+            toggleDrawer(scaffoldKey);
+            Get.toNamed(Routes.NEW_EVENT);
+          }
+          if (type == Constants.notifications) {
+            toggleDrawer(scaffoldKey);
             Get.toNamed(Routes.NOTIFICATIONS_PAGE);
           }
           if (type == Constants.resetpassword) {
-            Get.offNamed(Routes.Reset_PASSWORD);
+            toggleDrawer(scaffoldKey);
+            Get.toNamed(Routes.Reset_PASSWORD);
           }
           if (type == Constants.logout) {
             logout();
           }
         }
-        if (page == Constants.notifications) {
-          if (type == Constants.search) {
-            Get.toNamed(Routes.SEARCH_PAGE);
+
+        if (page == Constants.info) {
+          if (type == Constants.dashboard) {
+            Get.offAllNamed(Routes.DASHBOARD_PAGE);
           }
+          if (type == Constants.addbatch) {
+            toggleDrawer(scaffoldKey);
+            Get.toNamed(Routes.NEW_EVENT);
+          }
+          if (type == Constants.notifications) {
+            toggleDrawer(scaffoldKey);
+            Get.toNamed(Routes.NOTIFICATIONS_PAGE);
+          }
+
+          if (type == Constants.resetpassword) {
+            toggleDrawer(scaffoldKey);
+            Get.toNamed(Routes.Reset_PASSWORD);
+          }
+          if (type == Constants.logout) {
+            logout();
+          }
+        }
+
+        if (page == Constants.notifications) {
           if (type == Constants.dashboard) {
             Get.offNamed(Routes.DASHBOARD_PAGE);
+          }
+          if (type == Constants.addbatch) {
+            toggleDrawer(scaffoldKey);
+            Get.toNamed(Routes.NEW_EVENT);
           }
           if (type == Constants.notifications) {
             Get.back();
           }
           if (type == Constants.resetpassword) {
-            Get.offNamed(Routes.Reset_PASSWORD);
+            toggleDrawer(scaffoldKey);
+            Get.toNamed(Routes.Reset_PASSWORD);
           }
           if (type == Constants.logout) {
             logout();
           }
         }
+
         if (page == Constants.profile) {
           if (type == Constants.dashboard) {
             Get.offNamed(Routes.DASHBOARD_PAGE);
           }
+          if (type == Constants.addbatch) {
+            toggleDrawer(scaffoldKey);
+            Get.toNamed(Routes.NEW_EVENT);
+          }
           if (type == Constants.resetpassword) {
-            Get.offNamed(Routes.Reset_PASSWORD);
+            toggleDrawer(scaffoldKey);
+            Get.toNamed(Routes.Reset_PASSWORD);
           }
           if (type == Constants.notifications) {
             toggleDrawer(scaffoldKey);
@@ -99,7 +158,9 @@ class AppBarContainer {
                           ? Constants.Dashboard
                           : (type == Constants.notifications
                               ? Constants.Notifications
-                              : Constants.Logout)),
+                              : (type == Constants.addbatch
+                                  ? Constants.addbatch
+                                  : Constants.Logout))),
                   14.px,
                   FontWeight.normal,
                   PravasDarkColors().textColor),
