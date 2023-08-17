@@ -34,7 +34,7 @@ class SearchPageView extends GetView<SearchPageController> {
                     key: controller.scaffoldKey,
                     resizeToAvoidBottomInset: false,
                     backgroundColor: PravasDarkColors().cardColor,
-                    appBar: snapshot.data as PreferredSizeWidget,
+                    appBar: snapshot.hasData ? snapshot.data as PreferredSizeWidget : null,
                     drawer: Drawer(
                       backgroundColor:
                           PravasDarkColors().scaffoldBackgroundColor,

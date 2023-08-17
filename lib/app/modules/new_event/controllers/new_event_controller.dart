@@ -1,14 +1,15 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
-import 'package:get/get.dart';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:pravas/Utils/commonWidgets/constants.dart';
 import 'package:pravas/Utils/commonWidgets/toast.dart';
 import 'package:pravas/app/sharedPreference.dart';
 import 'package:pravas/colors.dart';
-import 'package:http/http.dart' as http;
 
 class NewEventController extends GetxController {
   TextEditingController limitController = TextEditingController();
@@ -19,7 +20,7 @@ class NewEventController extends GetxController {
   TextEditingController bookingamountController = TextEditingController();
   TextEditingController capacityController = TextEditingController();
   TextEditingController batchforController = TextEditingController();
-
+  var calendarValue = ''.obs;
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final image = "".obs;
   var startDate = DateTime.now().obs;
@@ -27,6 +28,8 @@ class NewEventController extends GetxController {
 
   final startdate = false.obs;
   final enddate = false.obs;
+
+  final calendarItems = ['Item 1', 'Item 2', 'Item 3'];
 
   final brandId = "".obs;
 
@@ -38,7 +41,9 @@ class NewEventController extends GetxController {
     brandId.value = (await SharedPreference.getString(key: Constants.loginId))!;
     super.onInit();
   }
-
+  void calendarItem(String item) {
+    calendarValue.value = item;
+  }
   @override
   void onReady() {
     super.onReady();

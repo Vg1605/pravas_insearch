@@ -8,8 +8,10 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class Appbar {
   static Future<PreferredSizeWidget> showAppbar(
-      String page, BuildContext context, GlobalKey<ScaffoldState> scaffoldKey,
-     ) async {
+    String page,
+    BuildContext context,
+    GlobalKey<ScaffoldState> scaffoldKey,
+  ) async {
     var image = "";
     image = (await SharedPreference.getString(key: Constants.image))!;
     return PreferredSize(
@@ -35,34 +37,38 @@ class Appbar {
                       ),
                     ),
               actions: [
-                GestureDetector(
-                  onTap: () {
-                    Get.toNamed(Routes.SEARCH_PAGE);
-                  },
-                  child: Image.asset(
-                    Constants.searchpng,
-                    height: 18.5.px,
-                    width: 18.5.px,
-                    color: page == Constants.search
-                        ? PravasDarkColors().textColor3
-                        : PravasDarkColors().textColor1,
-                  ),
-                ),
-
-                Stack(
-                  children: [
-                    IconButton(onPressed: (){
-                      Get.toNamed(Routes.NOTIFICATIONS_PAGE);
-                    }, icon: Icon(
-                      Icons.notifications_none_outlined,
-                      color: page == Constants.notifications
+                SizedBox(
+                  width: 25.px,
+                  height: 25.px,
+                  child: IconButton(
+                    onPressed: () {
+                      Get.toNamed(Routes.SEARCH_PAGE);
+                    },
+                    icon: Icon(
+                      Icons.search,
+                      color: page == Constants.search
                           ? PravasDarkColors().textColor3
                           : PravasDarkColors().textColor1,
-                      size: 24.px,
-                    ),),
+                    ),
+                  ),
+                ),
+                Stack(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Get.toNamed(Routes.NOTIFICATIONS_PAGE);
+                      },
+                      icon: Icon(
+                        Icons.notifications_none_outlined,
+                        color: page == Constants.notifications
+                            ? PravasDarkColors().textColor3
+                            : PravasDarkColors().textColor1,
+                        size: 26.px,
+                      ),
+                    ),
                     Positioned(
                       right: 8,
-                      top: 6,
+                      top: 5,
                       child: Container(
                         padding: const EdgeInsets.all(2),
                         decoration: const BoxDecoration(

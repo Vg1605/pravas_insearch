@@ -23,7 +23,6 @@ class DashboardPageView extends GetView<DashboardPageController> {
     Future<bool> _onWillPop() async {
       return controller.exit(context);
     }
-
     return FutureBuilder<Widget>(
         future: Appbar.showAppbar(
             Constants.dashboard, context, controller.scaffoldKey),
@@ -41,7 +40,7 @@ class DashboardPageView extends GetView<DashboardPageController> {
                       resizeToAvoidBottomInset: false,
                       backgroundColor:
                           PravasDarkColors().scaffoldBackgroundColor,
-                      appBar: snapshot.data as PreferredSizeWidget,
+                      appBar: snapshot.hasData ? snapshot.data as PreferredSizeWidget : null,
                       drawer: Drawer(
                         backgroundColor:
                             PravasDarkColors().scaffoldBackgroundColor,
@@ -398,7 +397,7 @@ class DashboardPageView extends GetView<DashboardPageController> {
                                                           child: Row(
                                                               mainAxisAlignment:
                                                                   MainAxisAlignment
-                                                                      .spaceBetween,
+                                                                      .start,
                                                               children: [
                                                                 Container(
                                                                   width: .6.dp,

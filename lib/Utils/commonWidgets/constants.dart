@@ -135,6 +135,4 @@ class Constants {
 "bfor":"TEXT",
 "booking_amt":"500",
 "capacity":"50"
-
-
 }*/

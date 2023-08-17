@@ -8,11 +8,11 @@ import 'package:pravas/Utils/commonWidgets/appbar.dart';
 import 'package:pravas/Utils/commonWidgets/constants.dart';
 import 'package:pravas/Utils/commonWidgets/sizedbox.dart';
 import 'package:pravas/Utils/commonWidgets/text.dart';
+import 'package:pravas/app/modules/new_event/controllers/new_event_controller.dart';
 import 'package:pravas/colors.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../controllers/new_event_controller.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
     show CalendarCarousel;
 import 'package:flutter_calendar_carousel/classes/event.dart';
@@ -34,7 +34,7 @@ class NewEventView extends GetView<NewEventController> {
               key: controller.scaffoldKey,
               resizeToAvoidBottomInset: false,
               backgroundColor: PravasDarkColors().scaffoldBackgroundColor,
-              appBar: snapshot.data as PreferredSizeWidget,
+              appBar: snapshot.hasData ? snapshot.data as PreferredSizeWidget : null,
               drawer: Drawer(
                 backgroundColor: PravasDarkColors().scaffoldBackgroundColor,
                 child: Padding(
@@ -548,6 +548,97 @@ class NewEventView extends GetView<NewEventController> {
                                             ),
                                           ],
                                         ),
+                                      ),
+                                      Box.showSizedbox(0.20.dp),
+                                      Txt.showText(
+                                          Constants.calendar,
+                                          16.sp,
+                                          FontWeight.w300,
+                                          PravasDarkColors().textColor1),
+                                      Box.showSizedbox(0.20.dp),
+                                      Obx(
+                                        () {
+                                          print(controller.startdate);
+                                          return Container(
+                                            decoration: BoxDecoration(
+                                                // color: Colors.white,
+                                                border: Border.all(
+                                                    color: PravasDarkColors()
+                                                        .border,
+                                                    width: .05.dp),
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(.25.dp))),
+                                            width: double.infinity,
+                                            height: 50.px,
+                                            child: Row(
+                                              children: [
+                                                SizedBox(width: .26.dp),
+                                                Container(
+                                                    color:
+                                                        PravasDarkColors().red,
+                                                    width: 14.px,
+                                                    height: 14.px),
+                                                SizedBox(
+                                                  width: .25.dp,
+                                                ),
+                                                // Expanded(
+                                                //   child: Txt.showText(
+                                                //       Constants.important,
+                                                //       16.sp,
+                                                //       FontWeight.w400,
+                                                //       PravasDarkColors().textColor2),
+                                                // ),
+                                                // Obx(() => Text('Selected Item:
+
+                                                Expanded(
+                                                  child: DropdownButton<String>(
+                                                    icon: Icon(
+                                                        Icons
+                                                            .keyboard_arrow_down_rounded,
+                                                        size: 24.px,
+                                                        color:
+                                                            PravasDarkColors()
+                                                                .textColor1),
+                                                    isExpanded: true,
+                                                    value: controller
+                                                            .calendarValue
+                                                            .value
+                                                            .isEmpty
+                                                        ? null
+                                                        : controller
+                                                            .calendarValue
+                                                            .value,
+                                                    items: controller
+                                                        .calendarItems
+                                                        .map((String item) {
+                                                      return DropdownMenuItem<
+                                                          String>(
+                                                        value: item,
+                                                        child: Txt.showText(
+                                                            item,
+                                                            16.sp,
+                                                            FontWeight.w300,
+                                                            PravasDarkColors()
+                                                                .textColor1),
+                                                      );
+                                                    }).toList(),
+                                                    onChanged:
+                                                        (String? newItem) {
+                                                      if (newItem != null) {
+                                                        controller.calendarItem(
+                                                            newItem);
+                                                      }
+                                                    },
+                                                    underline: Container(), //
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: .25.dp,
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
                                       ),
                                       Box.showSizedbox(0.30.dp),
                                       Container(

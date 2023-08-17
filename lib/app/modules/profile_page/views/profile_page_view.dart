@@ -29,7 +29,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                 key: controller.scaffoldKey,
                 resizeToAvoidBottomInset: false,
                 backgroundColor: PravasDarkColors().scaffoldBackgroundColor,
-                appBar: snapshot.data as PreferredSizeWidget,
+                appBar: snapshot.hasData ? snapshot.data as PreferredSizeWidget : null,
                 drawer: Drawer(
                   backgroundColor: PravasDarkColors().scaffoldBackgroundColor,
                   child: Padding(
@@ -322,7 +322,8 @@ class ProfilePageView extends GetView<ProfilePageController> {
                       ParticipantData participant =
                           controller.participantsModel.value!.data[index];
                       return Padding(
-                        padding: EdgeInsets.symmetric(horizontal: .20.dp),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: .20.dp, vertical: .10.dp),
                         child: GestureDetector(
                           onTap: () {
                             controller.info(
@@ -449,8 +450,10 @@ class ProfilePageView extends GetView<ProfilePageController> {
                                                 child: Padding(
                                                   padding:
                                                       EdgeInsets.all(.15.dp),
-                                                  child: const Icon(
+                                                  child: Icon(
                                                     Icons.call,
+                                                    color: PravasDarkColors()
+                                                        .textColor,
                                                   ),
                                                 ),
                                               ),
