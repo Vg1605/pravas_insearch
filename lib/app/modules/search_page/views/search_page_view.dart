@@ -34,7 +34,7 @@ class SearchPageView extends GetView<SearchPageController> {
                     key: controller.scaffoldKey,
                     resizeToAvoidBottomInset: false,
                     backgroundColor: PravasDarkColors().cardColor,
-                    appBar: snapshot.data as PreferredSizeWidget,
+                    appBar: snapshot.hasData ? snapshot.data as PreferredSizeWidget : null,
                     drawer: Drawer(
                       backgroundColor:
                           PravasDarkColors().scaffoldBackgroundColor,
@@ -68,6 +68,12 @@ class SearchPageView extends GetView<SearchPageController> {
                               }),
                               AppBarContainer.appbarContainer(
                                   Constants.dashboard,
+                                  context,
+                                  Constants.search,
+                                  controller.scaffoldKey),
+                              Box.showSizedbox(.25.dp),
+                              AppBarContainer.appbarContainer(
+                                  Constants.addbatch,
                                   context,
                                   Constants.search,
                                   controller.scaffoldKey),

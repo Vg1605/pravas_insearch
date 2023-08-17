@@ -6,13 +6,14 @@ import '../modules/forget_password/bindings/forget_password_binding.dart';
 import '../modules/forget_password/views/forget_password_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
-
 import '../modules/login_page/bindings/login_page_binding.dart';
 import '../modules/login_page/views/login_page_view.dart';
 import '../modules/new_event/bindings/new_event_binding.dart';
 import '../modules/new_event/views/new_event_view.dart';
 import '../modules/notifications_page/bindings/notifications_page_binding.dart';
 import '../modules/notifications_page/views/notifications_page_view.dart';
+import '../modules/participants_info_page/bindings/participants_info_page_binding.dart';
+import '../modules/participants_info_page/views/participants_info_page_view.dart';
 import '../modules/profile_page/bindings/profile_page_binding.dart';
 import '../modules/profile_page/views/profile_page_view.dart';
 import '../modules/reset_password/bindings/reset_password_binding.dart';
@@ -72,6 +73,11 @@ class AppPages {
       name: _Paths.NOTIFICATIONS_PAGE,
       page: () => const NotificationsPageView(),
       binding: NotificationsPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.PARTICIPANTS_INFO_PAGE,
+      page: () => const ParticipantsInfoPageView(),
+      binding: ParticipantsInfoPageBinding(),
     ),
   ];
 }

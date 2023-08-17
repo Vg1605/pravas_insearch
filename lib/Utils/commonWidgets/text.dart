@@ -11,7 +11,7 @@ class Txt {
     return Text(text,
         style: GoogleFonts.poppins(
           textStyle: TextStyle(
-              color: color, fontWeight: fontweight, fontSize: fontSize),
+              color: color, fontWeight: fontweight, fontSize: fontSize,),
         ));
   }
 }

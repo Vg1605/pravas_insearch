@@ -10,7 +10,7 @@ void main() {
   runApp(
     ResponsiveSizer(
       builder: (BuildContext, Orientation, ScreenType) {
-        return GetMaterialApp(
+        return  GetMaterialApp(
           theme: PravasThemeData.themeDataLight(),
           darkTheme: PravasThemeData.themeDataDark(),
           themeMode: ThemeMode.system,

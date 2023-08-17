@@ -5,6 +5,7 @@ import 'package:pravas/Utils/commonWidgets/constants.dart';
 import 'package:pravas/Utils/commonWidgets/sizedbox.dart';
 import 'package:pravas/Utils/commonWidgets/text.dart';
 import 'package:pravas/app/modules/reset_password/controllers/reset_password_controller.dart';
+import 'package:pravas/app/routes/app_pages.dart';
 import 'package:pravas/colors.dart';
 
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -23,7 +24,7 @@ class ResetPasswordView extends GetView<ResetPasswordController> {
           backgroundColor: PravasDarkColors().scaffoldBackgroundColor,
           leading: GestureDetector(
             onTap: () {
-              Get.back();
+              Get.offAllNamed(Routes.DASHBOARD_PAGE);
             },
             child: Icon(
               Icons.grid_view,

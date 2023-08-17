@@ -55,7 +55,6 @@ class LoginPageController extends GetxController {
                 key: Constants.image, value: userData.value!.data!.brand_logo!);
             SharedPreference.setString(
                 key: Constants.isLogin, value: Constants.isLogin);
-
             Get.offNamed(Routes.DASHBOARD_PAGE);
           }
         } else {

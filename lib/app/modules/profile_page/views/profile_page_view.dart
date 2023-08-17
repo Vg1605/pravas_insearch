@@ -29,7 +29,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                 key: controller.scaffoldKey,
                 resizeToAvoidBottomInset: false,
                 backgroundColor: PravasDarkColors().scaffoldBackgroundColor,
-                appBar: snapshot.data as PreferredSizeWidget,
+                appBar: snapshot.hasData ? snapshot.data as PreferredSizeWidget : null,
                 drawer: Drawer(
                   backgroundColor: PravasDarkColors().scaffoldBackgroundColor,
                   child: Padding(
@@ -62,6 +62,12 @@ class ProfilePageView extends GetView<ProfilePageController> {
                           }),
                           AppBarContainer.appbarContainer(
                               Constants.dashboard,
+                              context,
+                              Constants.profile,
+                              controller.scaffoldKey),
+                          Box.showSizedbox(.25.dp),
+                          AppBarContainer.appbarContainer(
+                              Constants.addbatch,
                               context,
                               Constants.profile,
                               controller.scaffoldKey),
@@ -204,7 +210,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                         color: PravasDarkColors().textColor1,
                       ),
                       SizedBox(height: .20.dp),
-                      Txt.showText(Constants.info, 16.sp, FontWeight.w600,
+                      Txt.showText(Constants.Info, 16.sp, FontWeight.w600,
                           PravasDarkColors().textColor),
                       SizedBox(height: .2.dp),
                       Txt.showText(Constants.tourtheme, 16.sp, FontWeight.w600,
@@ -316,134 +322,149 @@ class ProfilePageView extends GetView<ProfilePageController> {
                       ParticipantData participant =
                           controller.participantsModel.value!.data[index];
                       return Padding(
-                        padding: EdgeInsets.symmetric(horizontal: .20.dp),
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                                color: PravasDarkColors().border,
-                                width: 0.06.dp),
-                            borderRadius: BorderRadius.circular(18.px),
-                          ),
-                          color: PravasDarkColors().scaffoldBackgroundColor,
-                          child: SizedBox(
-                              height: .65.dp,
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                  left: .20.dp,
-                                  right: .20.dp,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(top: .25.dp),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        .15.dp),
-                                                color: participant
+                        padding: EdgeInsets.symmetric(
+                            horizontal: .20.dp, vertical: .10.dp),
+                        child: GestureDetector(
+                          onTap: () {
+                            controller.info(
+                              participant,
+                            );
+                          },
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                  color: PravasDarkColors().border,
+                                  width: 0.06.dp),
+                              borderRadius: BorderRadius.circular(18.px),
+                            ),
+                            color: PravasDarkColors().scaffoldBackgroundColor,
+                            child: SizedBox(
+                                height: .65.dp,
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    left: .20.dp,
+                                    right: .20.dp,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(top: .25.dp),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          .15.dp),
+                                                  color: participant
+                                                              .totalRemainingAmount ==
+                                                          "Rs.0"
+                                                      ? PravasDarkColors()
+                                                          .available
+                                                      : PravasDarkColors()
+                                                          .disabled),
+                                              height: .30.dp,
+                                              width: .5.dp,
+                                              child: Center(
+                                                child: participant
                                                             .totalRemainingAmount ==
                                                         "Rs.0"
-                                                    ? PravasDarkColors()
-                                                        .available
-                                                    : PravasDarkColors()
-                                                        .disabled),
-                                            height: .30.dp,
-                                            width: .5.dp,
-                                            child: Center(
-                                              child: participant
-                                                          .totalRemainingAmount ==
-                                                      "Rs.0"
-                                                  ? Txt.showText(
-                                                      Constants.paid,
-                                                      10.px,
-                                                      FontWeight.normal,
-                                                      PravasDarkColors()
-                                                          .availabletxt)
-                                                  : Txt.showText(
-                                                      Constants.pending,
-                                                      10.px,
-                                                      FontWeight.normal,
-                                                      PravasDarkColors()
-                                                          .disabledtxt),
-                                            ),
-                                          ),
-                                          Box.showSizedbox(.20.dp),
-                                          Txt.showText(
-                                              participant.name,
-                                              12.px,
-                                              FontWeight.normal,
-                                              PravasDarkColors().textColor),
-                                          Txt.showText(
-                                              participant.emailId,
-                                              12.px,
-                                              FontWeight.normal,
-                                              PravasDarkColors().textColor1)
-                                        ],
-                                      ),
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        GestureDetector(
-                                          onTap: () {
-                                            controller.sendWhatsAppMessage(
-                                                participant.contactNo);
-                                          },
-                                          child: Card(
-                                            color: PravasDarkColors().available,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10.px),
-                                            ),
-                                            child: SizedBox(
-                                              height: .40.dp,
-                                              width: .45.dp,
-                                              child: Padding(
-                                                padding: EdgeInsets.all(.15.dp),
-                                                child: Image.asset(
-                                                  "assets/img.png",
-                                                ),
+                                                    ? Txt.showText(
+                                                        Constants.paid,
+                                                        10.px,
+                                                        FontWeight.normal,
+                                                        PravasDarkColors()
+                                                            .availabletxt)
+                                                    : Txt.showText(
+                                                        Constants.pending,
+                                                        10.px,
+                                                        FontWeight.normal,
+                                                        PravasDarkColors()
+                                                            .disabledtxt),
                                               ),
                                             ),
-                                          ),
+                                            Box.showSizedbox(.20.dp),
+                                            Txt.showText(
+                                                participant.name,
+                                                12.px,
+                                                FontWeight.normal,
+                                                PravasDarkColors().textColor),
+                                            Txt.showText(
+                                                participant.emailId,
+                                                12.px,
+                                                FontWeight.normal,
+                                                PravasDarkColors().textColor1)
+                                          ],
                                         ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            controller.callNumber(
-                                                participant.contactNo);
-                                          },
-                                          child: Card(
-                                            color:
-                                                PravasDarkColors().textColor3,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10.px),
-                                            ),
-                                            child: SizedBox(
-                                              height: .40.dp,
-                                              width: .45.dp,
-                                              child: Padding(
-                                                padding: EdgeInsets.all(.15.dp),
-                                                child: const Icon(
-                                                  Icons.call,
+                                      ),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () {
+                                              controller.sendWhatsAppMessage(
+                                                  participant.contactNo);
+                                            },
+                                            child: Card(
+                                              color:
+                                                  PravasDarkColors().available,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        10.px),
+                                              ),
+                                              child: SizedBox(
+                                                height: .40.dp,
+                                                width: .45.dp,
+                                                child: Padding(
+                                                  padding:
+                                                      EdgeInsets.all(.15.dp),
+                                                  child: Image.asset(
+                                                    "assets/img.png",
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              )),
+                                          GestureDetector(
+                                            onTap: () {
+                                              controller.callNumber(
+                                                  participant.contactNo);
+                                            },
+                                            child: Card(
+                                              color:
+                                                  PravasDarkColors().textColor3,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        10.px),
+                                              ),
+                                              child: SizedBox(
+                                                height: .40.dp,
+                                                width: .45.dp,
+                                                child: Padding(
+                                                  padding:
+                                                      EdgeInsets.all(.15.dp),
+                                                  child: Icon(
+                                                    Icons.call,
+                                                    color: PravasDarkColors()
+                                                        .textColor,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                )),
+                          ),
                         ),
                       );
                     },

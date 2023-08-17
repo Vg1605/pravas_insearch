@@ -24,7 +24,7 @@ class NotificationsPageView extends GetView<NotificationsPageController> {
               key: controller.scaffoldKey,
               resizeToAvoidBottomInset: false,
               backgroundColor: PravasDarkColors().scaffoldBackgroundColor,
-              appBar: snapshot.data as PreferredSizeWidget,
+              appBar:snapshot.hasData ? snapshot.data as PreferredSizeWidget : null,
               drawer: Drawer(
                 backgroundColor: PravasDarkColors().scaffoldBackgroundColor,
                 child: Padding(
@@ -59,6 +59,12 @@ class NotificationsPageView extends GetView<NotificationsPageController> {
                             Constants.dashboard,
                             context,
                             Constants.notifications,
+                            controller.scaffoldKey),
+                        Box.showSizedbox(.25.dp),
+                        AppBarContainer.appbarContainer(
+                            Constants.addbatch,
+                            context,
+                            Constants.search,
                             controller.scaffoldKey),
                         Box.showSizedbox(.25.dp),
                         AppBarContainer.appbarContainer(
