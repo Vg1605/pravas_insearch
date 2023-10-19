@@ -138,7 +138,8 @@ class AppBarContainer {
           }
         }
       },
-      child: Container(
+      child:
+      Container(
         decoration: BoxDecoration(
           border: Border.all(color: PravasDarkColors().border, width: 1.px),
           borderRadius: BorderRadius.circular(.25.dp),

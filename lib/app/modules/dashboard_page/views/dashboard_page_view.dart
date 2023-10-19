@@ -197,6 +197,7 @@ class DashboardPageView extends GetView<DashboardPageController> {
                                           child: Row(
                                             children: [
                                               Expanded(
+
                                                 child: Text(
                                                     "${Constants.disabled} [${controller.past.value}]"),
                                               ),
@@ -312,7 +313,8 @@ class DashboardPageView extends GetView<DashboardPageController> {
                             () {
                               return SizedBox(
                                 child: controller.indicator.value == false
-                                    ? ListView.builder(
+                                    ?
+                                ListView.builder(
                                         physics: const BouncingScrollPhysics(),
                                         itemCount: controller.itemList.length,
                                         itemBuilder:

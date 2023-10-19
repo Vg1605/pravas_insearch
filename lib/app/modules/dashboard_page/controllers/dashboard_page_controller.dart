@@ -74,7 +74,17 @@ class DashboardPageController extends GetxController {
         body: jsonEncode(param));
     var jsonResponseBody = jsonDecode(response.body);
     if (response.statusCode == 200) {
+      /*  dynamic responseData = jsonResponseBody["data"];
+      print(responseData);
+      if (responseData != null && responseData is List<dynamic>) {
+        List<dynamic> dataArray = responseData;
+        ongoingLength.value = dataArray.length.toString();
+        indicator.value = false;
+      } else {
+        print("null::");
+      }*/
       List<dynamic> dataArray = jsonResponseBody["data"];
+      print("dataarray:$dataArray");
       ongoingLength.value = dataArray.length.toString();
       indicator.value = false;
       if (jsonResponseBody["message"] == "Batches available") {

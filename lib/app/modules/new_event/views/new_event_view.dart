@@ -591,7 +591,8 @@ class NewEventView extends GetView<NewEventController> {
                                                 // Obx(() => Text('Selected Item:
 
                                                 Expanded(
-                                                  child: DropdownButton<String>(
+                                                  child:
+                                                  DropdownButton<String>(
                                                     icon: Icon(
                                                         Icons
                                                             .keyboard_arrow_down_rounded,

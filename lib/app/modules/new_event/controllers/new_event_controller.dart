@@ -23,8 +23,12 @@ class NewEventController extends GetxController {
   var calendarValue = ''.obs;
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final image = "".obs;
-  var startDate = DateTime.now().obs;
-  var endDate = DateTime.now().obs;
+  var startDate = DateTime
+      .now()
+      .obs;
+  var endDate = DateTime
+      .now()
+      .obs;
 
   final startdate = false.obs;
   final enddate = false.obs;
@@ -41,9 +45,11 @@ class NewEventController extends GetxController {
     brandId.value = (await SharedPreference.getString(key: Constants.loginId))!;
     super.onInit();
   }
+
   void calendarItem(String item) {
     calendarValue.value = item;
   }
+
   @override
   void onReady() {
     super.onReady();
